@@ -15,6 +15,7 @@
 		F6BEAB5C1E609416005CF796 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6BEAB5A1E609416005CF796 /* LaunchScreen.storyboard */; };
 		F6BEAB671E609416005CF796 /* HabitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BEAB661E609416005CF796 /* HabitTests.swift */; };
 		F6BEAB721E609416005CF796 /* HabitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BEAB711E609416005CF796 /* HabitUITests.swift */; };
+		F6BEAB801E6095AA005CF796 /* DatabaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BEAB7F1E6095AA005CF796 /* DatabaseController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		F6BEAB6D1E609416005CF796 /* HabitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HabitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6BEAB711E609416005CF796 /* HabitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitUITests.swift; sourceTree = "<group>"; };
 		F6BEAB731E609416005CF796 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F6BEAB7F1E6095AA005CF796 /* DatabaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				F6BEAB4E1E609416005CF796 /* AppDelegate.swift */,
+				F6BEAB7F1E6095AA005CF796 /* DatabaseController.swift */,
 				F6BEAB501E609416005CF796 /* ViewController.swift */,
 				F6BEAB521E609416005CF796 /* Main.storyboard */,
 				F6BEAB581E609416005CF796 /* Assets.xcassets */,
@@ -265,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6BEAB801E6095AA005CF796 /* DatabaseController.swift in Sources */,
 				F6BEAB571E609416005CF796 /* Habit.xcdatamodeld in Sources */,
 				F6BEAB511E609416005CF796 /* ViewController.swift in Sources */,
 				F6BEAB4F1E609416005CF796 /* AppDelegate.swift in Sources */,
@@ -516,6 +520,7 @@
 				F6BEAB781E609416005CF796 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F6BEAB791E609416005CF796 /* Build configuration list for PBXNativeTarget "HabitTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +529,7 @@
 				F6BEAB7B1E609416005CF796 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F6BEAB7C1E609416005CF796 /* Build configuration list for PBXNativeTarget "HabitUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +538,7 @@
 				F6BEAB7E1E609416005CF796 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
