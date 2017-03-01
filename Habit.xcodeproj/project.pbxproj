@@ -16,6 +16,7 @@
 		F6BEAB671E609416005CF796 /* HabitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BEAB661E609416005CF796 /* HabitTests.swift */; };
 		F6BEAB721E609416005CF796 /* HabitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BEAB711E609416005CF796 /* HabitUITests.swift */; };
 		F6BEAB801E6095AA005CF796 /* DatabaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BEAB7F1E6095AA005CF796 /* DatabaseController.swift */; };
+		F6E22F331E664DA0001211E3 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E22F321E664DA0001211E3 /* TableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		F6BEAB711E609416005CF796 /* HabitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitUITests.swift; sourceTree = "<group>"; };
 		F6BEAB731E609416005CF796 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6BEAB7F1E6095AA005CF796 /* DatabaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseController.swift; sourceTree = "<group>"; };
+		F6E22F321E664DA0001211E3 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				F6BEAB7F1E6095AA005CF796 /* DatabaseController.swift */,
 				F6BEAB501E609416005CF796 /* ViewController.swift */,
 				F6BEAB521E609416005CF796 /* Main.storyboard */,
+				F6E22F321E664DA0001211E3 /* TableViewController.swift */,
 				F6BEAB581E609416005CF796 /* Assets.xcassets */,
 				F6BEAB5A1E609416005CF796 /* LaunchScreen.storyboard */,
 				F6BEAB5D1E609416005CF796 /* Info.plist */,
@@ -271,6 +274,7 @@
 				F6BEAB801E6095AA005CF796 /* DatabaseController.swift in Sources */,
 				F6BEAB571E609416005CF796 /* Habit.xcdatamodeld in Sources */,
 				F6BEAB511E609416005CF796 /* ViewController.swift in Sources */,
+				F6E22F331E664DA0001211E3 /* TableViewController.swift in Sources */,
 				F6BEAB4F1E609416005CF796 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

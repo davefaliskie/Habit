@@ -11,11 +11,12 @@ import CoreData
 
 class ViewController: UIViewController {
 
+    
+    @IBOutlet weak var habitNameTF: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        addData()
-        fetchData()
         
     }
 
@@ -23,34 +24,47 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
-    func addData() {
+    
+    
+    // action for when the CANCEL button is pressed on the Create habit page
+    @IBAction func cancelButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    
+    }
+    
+    // action for when the SAVE button is pressed on the Create habit page
+    @IBAction func saveButton(_ sender: Any) {
         // makes CoreData manage the habitData variable
         let habitData = HabitData(context: DatabaseController.getContext())
         
-        habitData.name = "Run"
-        habitData.daysComplete = 3
+        // store the input as the name
+        habitData.name = habitNameTF.text
         
         // saves data to the database
         DatabaseController.saveContext()
-    }
-    
-    func fetchData() {
         
-        let fetchRequest:NSFetchRequest<HabitData> = HabitData.fetchRequest()
-        
-        do {
-            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
-            print("number of results: \(searchResults.count)")
-            
-            for result in searchResults as [HabitData] {
-                print("\(result.name!) has been completed \(result.daysComplete) times")
-            }
-        } catch {
-            print ("Error: \(error)")
-        }
+        // return home
+        dismiss(animated: true, completion: nil)
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
