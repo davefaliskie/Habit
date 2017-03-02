@@ -36,7 +36,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.reloadData()
     }
 
-
+    
+    // fetch the habit data and store it in the periviously created habits array
     func fetchData() {
         
         let fetchRequest:NSFetchRequest<HabitData> = HabitData.fetchRequest()
@@ -51,11 +52,6 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     // MARK: - Table view data source
-
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // returns number of rows
@@ -73,7 +69,26 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
         return cell
     }
+    
+    // function to delete data from table using swipe to delete
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            let context = DatabaseController.getContext()
+            let item = habits[indexPath.row] as NSManagedObject
+            context.delete(item)
+            fetchData()
+            DatabaseController.saveContext()
+        }
+        tableView.reloadData()
+    }
+    
+    // function to deleat the table row
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return.delete
+    }
  
+    
+    
 
     /*
     // Override to support conditional editing of the table view.
