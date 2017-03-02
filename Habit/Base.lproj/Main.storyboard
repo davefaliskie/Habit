@@ -23,9 +23,12 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bhj-gs-Zxw" id="klR-Qr-lu2">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="NH2-VM-WLp" kind="show" identifier="showHabit" id="sZB-Hi-lIu"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -47,6 +50,47 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XM1-kM-kSi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-238" y="78"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="yzy-3M-cuQ">
+            <objects>
+                <viewController id="NH2-VM-WLp" customClass="DetailViewController" customModule="Habit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bxV-ZH-MUt"/>
+                        <viewControllerLayoutGuide type="bottom" id="47s-oF-BUY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cxE-6D-1ls">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qb1-Iy-kKp">
+                                <rect key="frame" x="24" y="114" width="327" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qb1-Iy-kKp" firstAttribute="leading" secondItem="cxE-6D-1ls" secondAttribute="leadingMargin" constant="8" id="4Fn-i6-2g5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qb1-Iy-kKp" secondAttribute="trailing" constant="8" id="Gqc-kd-CWw"/>
+                            <constraint firstItem="qb1-Iy-kKp" firstAttribute="top" secondItem="bxV-ZH-MUt" secondAttribute="bottom" constant="50" id="qzF-SK-yl4"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="WR8-GI-flj">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="KZk-GV-2S4">
+                            <connections>
+                                <action selector="savePressed:" destination="NH2-VM-WLp" id="6ns-cc-4OH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="habitNameTF" destination="qb1-Iy-kKp" id="Tqx-kl-wAf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d2j-Ea-lMd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-239" y="897"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
