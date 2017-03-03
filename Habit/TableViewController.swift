@@ -60,7 +60,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
         let habit = habits[indexPath.row]
         
-        cell.textLabel?.text = habit.name!
+        cell.textLabel?.text = "\(habit.name!) (\(String(habit.daysComplete)))"
 
         return cell
     }

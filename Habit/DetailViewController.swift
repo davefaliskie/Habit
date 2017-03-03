@@ -10,23 +10,24 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    @IBOutlet weak var totalCompleted: UILabel!
     @IBOutlet weak var habitNameTF: UITextField!
     var habit: HabitData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
-        guard let habitName = habit?.name else {fatalError("Cannot show detail without an item")}
-        habitNameTF.text = habitName
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        loadData()
+        
     }
     
+    // loads the data and displays it on the page.
+    func loadData() {
+        guard let habitName = habit?.name else {fatalError("Cannot show detail without an item")}
+        guard let habitDaysComplete = habit?.daysComplete else {fatalError("Cannot show detail without an item")}
+        habitNameTF.text = habitName
+        totalCompleted.text = String(habitDaysComplete)
+    }
 
     
     // MARK: - Save / Update
@@ -38,5 +39,16 @@ class DetailViewController: UIViewController {
             _ = navigationController?.popViewController(animated: true)
         }
     }
+    
+    // Add one to days complete when pressed
+    @IBAction func addCompleted(_ sender: Any) {
+        if let habit = habit {
+            habit.daysComplete = habit.daysComplete + 1
+            DatabaseController.saveContext()
+            loadData()
+        }
+    }
+    
+    
 
 }

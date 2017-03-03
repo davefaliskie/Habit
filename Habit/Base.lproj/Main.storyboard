@@ -69,12 +69,41 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="koC-5Q-X6K">
+                                <rect key="frame" x="114" y="244" width="146" height="30"/>
+                                <state key="normal" title="Completed Today"/>
+                                <connections>
+                                    <action selector="addCompleted:" destination="NH2-VM-WLp" eventType="touchUpInside" id="mzd-dD-96X"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Completed: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hJb-1W-rfP">
+                                <rect key="frame" x="24" y="200" width="139" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="139" id="xyq-N3-8Sj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="####" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aOL-Z1-Hlb">
+                                <rect key="frame" x="309" y="200" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="qb1-Iy-kKp" firstAttribute="leading" secondItem="cxE-6D-1ls" secondAttribute="leadingMargin" constant="8" id="4Fn-i6-2g5"/>
+                            <constraint firstItem="hJb-1W-rfP" firstAttribute="leading" secondItem="qb1-Iy-kKp" secondAttribute="leading" id="6CA-av-Y3i"/>
+                            <constraint firstItem="koC-5Q-X6K" firstAttribute="top" secondItem="qb1-Iy-kKp" secondAttribute="bottom" constant="100" id="AaK-ej-MXQ"/>
+                            <constraint firstItem="hJb-1W-rfP" firstAttribute="baseline" secondItem="aOL-Z1-Hlb" secondAttribute="baseline" id="D5D-to-YHu"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qb1-Iy-kKp" secondAttribute="trailing" constant="8" id="Gqc-kd-CWw"/>
+                            <constraint firstItem="koC-5Q-X6K" firstAttribute="top" secondItem="hJb-1W-rfP" secondAttribute="bottom" constant="23" id="hc0-JK-f7L"/>
+                            <constraint firstItem="koC-5Q-X6K" firstAttribute="centerX" secondItem="qb1-Iy-kKp" secondAttribute="centerX" id="kQP-km-7us"/>
+                            <constraint firstItem="koC-5Q-X6K" firstAttribute="leading" secondItem="cxE-6D-1ls" secondAttribute="leadingMargin" constant="98" id="pem-Kk-S98"/>
                             <constraint firstItem="qb1-Iy-kKp" firstAttribute="top" secondItem="bxV-ZH-MUt" secondAttribute="bottom" constant="50" id="qzF-SK-yl4"/>
+                            <constraint firstItem="aOL-Z1-Hlb" firstAttribute="trailing" secondItem="qb1-Iy-kKp" secondAttribute="trailing" id="wsI-wU-889"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="WR8-GI-flj">
@@ -86,11 +115,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="habitNameTF" destination="qb1-Iy-kKp" id="Tqx-kl-wAf"/>
+                        <outlet property="totalCompleted" destination="aOL-Z1-Hlb" id="04b-y2-res"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d2j-Ea-lMd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-239" y="897"/>
+            <point key="canvasLocation" x="-239.19999999999999" y="896.40179910044981"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
