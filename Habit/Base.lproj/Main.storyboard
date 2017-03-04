@@ -63,7 +63,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qb1-Iy-kKp">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="You Must Enter a Habit" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qb1-Iy-kKp">
                                 <rect key="frame" x="24" y="114" width="327" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -115,12 +115,13 @@
                     </navigationItem>
                     <connections>
                         <outlet property="habitNameTF" destination="qb1-Iy-kKp" id="Tqx-kl-wAf"/>
+                        <outlet property="saveBtn" destination="KZk-GV-2S4" id="Wbs-Kx-jVF"/>
                         <outlet property="totalCompleted" destination="aOL-Z1-Hlb" id="04b-y2-res"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d2j-Ea-lMd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-239.19999999999999" y="896.40179910044981"/>
+            <point key="canvasLocation" x="-239" y="772"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -134,7 +135,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mf9-N9-TsY">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please Enter a Habit" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mf9-N9-TsY">
                                 <rect key="frame" x="24" y="114" width="327" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -162,11 +163,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="habitNameTF" destination="Mf9-N9-TsY" id="HCg-Q8-zNm"/>
+                        <outlet property="saveBtn" destination="Ucw-bI-nJX" id="cnV-cm-TkQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1636" y="77.811094452773617"/>
+            <point key="canvasLocation" x="460" y="78"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="g0Z-vS-irt">
@@ -202,7 +204,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rmI-PR-kfz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="696.79999999999995" y="77.811094452773617"/>
+            <point key="canvasLocation" x="460" y="78"/>
         </scene>
     </scenes>
 </document>

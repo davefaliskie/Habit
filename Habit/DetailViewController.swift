@@ -8,14 +8,19 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var totalCompleted: UILabel!
     @IBOutlet weak var habitNameTF: UITextField!
+    @IBOutlet weak var saveBtn: UIBarButtonItem!
+    
     var habit: HabitData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Setting the Delegate for the TextField
+        habitNameTF.delegate = self
         
         loadData()
         
@@ -47,6 +52,24 @@ class DetailViewController: UIViewController {
             DatabaseController.saveContext()
             loadData()
         }
+    }
+    
+    
+    // MARK: Disable the save button until some text is entered
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        // Find out what the text field will be after adding the current edit
+        let text = (habitNameTF.text! as NSString).replacingCharacters(in: range, with: string)
+        
+        //Checking if the input field is empty
+        if text.trimmingCharacters(in: CharacterSet.whitespaces).isEmpty{
+            // Disable Save Button
+            saveBtn.isEnabled = false
+        } else {
+            // Enable Save Button
+            saveBtn.isEnabled = true
+        }
+        return true
     }
     
     
