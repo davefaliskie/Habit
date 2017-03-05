@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F671104D1E67A20D000398B8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F671104C1E67A20D000398B8 /* DetailViewController.swift */; };
+		F68032D01E6C952100898D08 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68032CF1E6C952100898D08 /* CustomCell.swift */; };
 		F6BEAB4F1E609416005CF796 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BEAB4E1E609416005CF796 /* AppDelegate.swift */; };
 		F6BEAB511E609416005CF796 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BEAB501E609416005CF796 /* ViewController.swift */; };
 		F6BEAB541E609416005CF796 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6BEAB521E609416005CF796 /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		F671104C1E67A20D000398B8 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		F68032CF1E6C952100898D08 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		F6BEAB4B1E609416005CF796 /* Habit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6BEAB4E1E609416005CF796 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6BEAB501E609416005CF796 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				F6BEAB7F1E6095AA005CF796 /* DatabaseController.swift */,
 				F6BEAB501E609416005CF796 /* ViewController.swift */,
 				F6E22F321E664DA0001211E3 /* TableViewController.swift */,
+				F68032CF1E6C952100898D08 /* CustomCell.swift */,
 				F671104C1E67A20D000398B8 /* DetailViewController.swift */,
 				F6BEAB521E609416005CF796 /* Main.storyboard */,
 				F6BEAB5A1E609416005CF796 /* LaunchScreen.storyboard */,
@@ -279,6 +282,7 @@
 				F6BEAB511E609416005CF796 /* ViewController.swift in Sources */,
 				F671104D1E67A20D000398B8 /* DetailViewController.swift in Sources */,
 				F6E22F331E664DA0001211E3 /* TableViewController.swift in Sources */,
+				F68032D01E6C952100898D08 /* CustomCell.swift in Sources */,
 				F6BEAB4F1E609416005CF796 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

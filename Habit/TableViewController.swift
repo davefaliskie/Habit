@@ -20,6 +20,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         tableView.dataSource = self
         tableView.delegate = self
+        
+        tableView.rowHeight = 130
 
     }
     
@@ -56,14 +58,17 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     // displays data to table
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "HabitCell", for: indexPath)
+        // defines the cell and calls the CustomCell class
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HabitCell", for: indexPath) as! CustomCell
 
         let habit = habits[indexPath.row]
         
-        cell.textLabel?.text = "\(habit.name!) (\(String(habit.daysComplete)))"
-
+        cell.habitNameLabel?.text = String(habit.name!)
+        cell.daysCompleteLabel?.text = String(habit.daysComplete)
+        
         return cell
     }
+    
     
     // function to delete data from table using swipe to delete
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
