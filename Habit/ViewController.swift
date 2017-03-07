@@ -62,6 +62,9 @@ class ViewController: UIViewController, UITextFieldDelegate{
         // store the input as the name
         habitData.name = habitNameTF.text
         
+        // store the date created
+        habitData.dateCreated = NSDate()
+        
         // saves data to the database
         DatabaseController.saveContext()
         
