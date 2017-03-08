@@ -13,6 +13,10 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var totalCompleted: UILabel!
     @IBOutlet weak var habitNameTF: UITextField!
     @IBOutlet weak var saveBtn: UIBarButtonItem!
+    @IBOutlet weak var completeBtn: UIButton!
+    @IBOutlet weak var notCompleteBtn: UIButton!
+    
+    let TVC = TableViewController()
     
     var habit: HabitData?
     
@@ -23,7 +27,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         habitNameTF.delegate = self
         
         loadData()
-        
     }
     
     // loads the data and displays it on the page.
@@ -32,6 +35,13 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         guard let habitDaysComplete = habit?.daysComplete else {fatalError("Cannot show detail without an item")}
         habitNameTF.text = habitName
         totalCompleted.text = String(habitDaysComplete)
+        
+        // sets the 'Complete' btns based on daily activity
+        if habit?.lastComplete == nil {
+            notCompleteBtn.isEnabled = false
+        } else {
+            completeBtnEnabled(lastComplete: (habit?.lastComplete!)!)
+        }
     }
 
     
@@ -45,14 +55,43 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // MARK: Completed buttons and logic
     // Add one to days complete when pressed
     @IBAction func addCompleted(_ sender: Any) {
         if let habit = habit {
             habit.daysComplete = habit.daysComplete + 1
+            habit.lastComplete = NSDate()
             DatabaseController.saveContext()
             loadData()
         }
     }
+    
+    // Subtract one to days complete when pressed
+    @IBAction func removeComplete(_ sender: Any) {
+        if let habit = habit {
+            habit.daysComplete = habit.daysComplete - 1
+            habit.lastComplete = NSDate.distantPast as NSDate?
+            DatabaseController.saveContext()
+            loadData()
+        }
+    }
+    
+    
+    // function to disable the complete button if already completed today.
+    func completeBtnEnabled (lastComplete: NSDate) {
+        
+        let difference = TVC.daysFromStart(date: lastComplete as Date)
+        
+        if (difference == 0) {
+            completeBtn.isEnabled = false
+            notCompleteBtn.isEnabled = true
+        } else {
+            completeBtn.isEnabled = true
+            notCompleteBtn.isEnabled = false
+        }
+        
+    }
+    
     
     
     // MARK: Disable the save button until some text is entered

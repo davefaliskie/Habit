@@ -147,6 +147,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3SW-5i-ZUz">
+                                <rect key="frame" x="109" y="275" width="157" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Not Completed Today"/>
+                                <connections>
+                                    <action selector="removeComplete:" destination="NH2-VM-WLp" eventType="touchUpInside" id="1mk-ez-VKT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -170,14 +178,16 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="completeBtn" destination="koC-5Q-X6K" id="qys-Jr-L1z"/>
                         <outlet property="habitNameTF" destination="qb1-Iy-kKp" id="Tqx-kl-wAf"/>
+                        <outlet property="notCompleteBtn" destination="3SW-5i-ZUz" id="TEq-sE-SBe"/>
                         <outlet property="saveBtn" destination="KZk-GV-2S4" id="Wbs-Kx-jVF"/>
                         <outlet property="totalCompleted" destination="aOL-Z1-Hlb" id="04b-y2-res"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d2j-Ea-lMd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-239" y="772"/>
+            <point key="canvasLocation" x="-239.19999999999999" y="771.36431784107947"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">

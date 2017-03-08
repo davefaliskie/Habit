@@ -66,19 +66,19 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.habitNameLabel?.text = String(habit.name!)
         cell.daysCompleteLabel?.text = String(habit.daysComplete)
         cell.dateStarted?.text = formatDate(date: habit.dateCreated!)
-        cell.daysFromStart?.text = "of \(String(daysFromStart(date: habit.dateCreated! as Date)))"
+        cell.daysFromStart?.text = "of \(String(daysFromStart(date: habit.dateCreated! as Date) + 1))"
         
         return cell
     }
     
     // function to get how many days from creation of habit
-    func daysFromStart(date: Date) -> Int {
+    public func daysFromStart(date: Date) -> Int {
         let startDate: Date = date as Date
         let currentDate: Date = Date()
         let currentCalendar = Calendar.current
         let start = currentCalendar.ordinality(of: .day, in: .era, for: startDate as Date)
         let end = currentCalendar.ordinality(of: .day, in: .era, for: currentDate as Date)
-        let difference = (start! - end!) + 1
+        let difference = (end! - start!)
         return difference
     }
     
@@ -119,6 +119,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             let habit = habits[indexPath.row]
             destinationController.habit = habit
+            
+            
         }
     }
     
