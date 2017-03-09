@@ -8,13 +8,14 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, UITextFieldDelegate {
+class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet weak var totalCompleted: UILabel!
     @IBOutlet weak var habitNameTF: UITextField!
     @IBOutlet weak var saveBtn: UIBarButtonItem!
     @IBOutlet weak var completeBtn: UIButton!
     @IBOutlet weak var notCompleteBtn: UIButton!
+    @IBOutlet weak var badgeView: UICollectionView!
     
     let TVC = TableViewController()
     
@@ -26,7 +27,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         //Setting the Delegate for the TextField
         habitNameTF.delegate = self
         
+        // set badge Collect view delegates
+        badgeView.delegate = self
+        badgeView.dataSource = self
+        
         loadData()
+
     }
     
     // loads the data and displays it on the page.
@@ -110,6 +116,46 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
+    
+    
+    // MARK: Badges
+    
+    
+    
+    
+    var images = ["badge1", "badge2", "badge3", "badge4", "badge5", "badge6"]
+    
+    // mandatory functions for collection view 
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return images.count
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BadgeCell", for: indexPath) as! BadgesCell
+        
+        // style to make round and add border
+        cell.layer.cornerRadius = 50
+        cell.layer.borderColor = UIColor.lightGray.cgColor
+        cell.layer.borderWidth = 3
+        
+        cell.badgeImage.image = UIImage(named: images[indexPath.row])
+        cell.badgeImage.contentMode = .scaleAspectFit
+        
+        return cell
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
 
