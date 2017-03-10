@@ -71,13 +71,29 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
     
+    
+    //String MM-dd-yy to Date Convert
+    func stringToDate(string: String) -> Optional<Any> {
+        let dateString = string
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yy"
+        let s = dateFormatter.date(from: dateString)
+        return s
+        
+    }
+    
     // function to get how many days from creation of habit
     public func daysFromStart(date: Date) -> Int {
-        let startDate: Date = date as Date
-        let currentDate: Date = Date()
+        
+        let startDateRaw: Date = date as Date
+        let currentDateRaw: Date = Date()
+        
+        let startDate = stringToDate(string: formatDate(date: startDateRaw as NSDate))
+        let currentDate = stringToDate(string: formatDate(date: currentDateRaw as NSDate))
+        
         let currentCalendar = Calendar.current
-        let start = currentCalendar.ordinality(of: .day, in: .era, for: startDate as Date)
-        let end = currentCalendar.ordinality(of: .day, in: .era, for: currentDate as Date)
+        let start = currentCalendar.ordinality(of: .day, in: .era, for: startDate as! Date)
+        let end = currentCalendar.ordinality(of: .day, in: .era, for: currentDate as! Date)
         let difference = (end! - start!)
         return difference
     }
