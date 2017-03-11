@@ -109,6 +109,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     
+    //MARK: deleting
+    
     // function to delete data from table using swipe to delete
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
