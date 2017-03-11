@@ -16,6 +16,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
     @IBOutlet weak var completeBtn: UIButton!
     @IBOutlet weak var notCompleteBtn: UIButton!
     @IBOutlet weak var badgeView: UICollectionView!
+    @IBOutlet weak var historyView: UICollectionView!
     @IBOutlet weak var currentStreak: UILabel!
     @IBOutlet weak var highestStreak: UILabel!
     
@@ -34,9 +35,15 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         //Setting the Delegate for the TextField
         habitNameTF.delegate = self
         
-        // set badge Collect view delegates
+        // set Collect view delegates
         badgeView.delegate = self
+        historyView.delegate = self
+        
         badgeView.dataSource = self
+        historyView.dataSource = self
+        
+        self.view.addSubview(badgeView)
+        self.view.addSubview(historyView)
         
         loadData()
 
@@ -65,7 +72,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         }
         
         getBadges()
-        badgeView.reloadData()
+        //badgeView.reloadData()
         showDates()
         
     }
@@ -149,7 +156,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
     
     //MARK: Streak
     
-    // function to set current streak back to zero if habit is missed for one whole day.
+    // function to set current streak back to zero if habit is missed for one whole day &&& set the higest streak.
     func checkCurrentStreak() {
         if let habit = habit {
             if ((habit.lastComplete) != nil) {
@@ -162,7 +169,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
                 
                 // reset current streak to zero if a day is missed
                 let difference = TVC.daysFromStart(date: habit.lastComplete as! Date)
-                if difference == 2 {
+                if difference >= 2 {
                     habit.currentStreak = 0
                     habit.streakEqual = false
                     DatabaseController.saveContext()
@@ -178,44 +185,62 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
     
     
     
-    // MARK: Badges
+    // MARK: Badges/ History Collection Views
     
-    var images = ["badge1"]
+    var BadgeImages = ["badge1"]
+    var HistoryImages = ["check", "miss"]
     
     // mandatory functions for collection view 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        // for badge collection view count
+        if collectionView == self.badgeView {
+            return BadgeImages.count
+        }
+        // for history collection view count
+        return HistoryImages.count
     }
+    
     
     // Displays all the images from the images array to the View
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BadgeCell", for: indexPath) as! BadgesCell
-        
-        // style to make round and add border
-        cell.layer.cornerRadius = 50
-        cell.layer.borderColor = UIColor.lightGray.cgColor
-        cell.layer.borderWidth = 3
-        
-        cell.badgeImage.image = UIImage(named: images[indexPath.row])
-        cell.badgeImage.contentMode = .scaleAspectFit
-        
-        return cell
+        // for badge collection view
+        if collectionView == self.badgeView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BadgeCell", for: indexPath) as! BadgesCell
+            
+            // style to make round and add border
+            cell.layer.cornerRadius = 50
+            cell.layer.borderColor = UIColor.lightGray.cgColor
+            cell.layer.borderWidth = 3
+            
+            cell.badgeImage.image = UIImage(named: BadgeImages[indexPath.row])
+            cell.badgeImage.contentMode = .scaleAspectFit
+            
+            return cell
+        }
+            
+        // for History collection view
+        else {
+            let cellB = collectionView.dequeueReusableCell(withReuseIdentifier: "HistoryCell", for: indexPath) as! HistoryCell
+            
+            cellB.historyImage.image = UIImage(named: HistoryImages[indexPath.row])
+            cellB.historyImage.contentMode = .scaleAspectFit
+            
+            return cellB
+
+        }
     }
     
     
     // function to give a badge upon first completion of task 
     func getBadges() {
         if (habit?.daysComplete)! >= 1 {
-            images.append("badge2")
+            BadgeImages.append("badge2")
         }
         if (habit?.daysComplete)! >= 5 {
-            images.append("badge3")
+            BadgeImages.append("badge3")
         }
         
     }
-    
-    
     
     
     
