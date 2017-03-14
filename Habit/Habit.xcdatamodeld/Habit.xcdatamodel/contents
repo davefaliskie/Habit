@@ -5,12 +5,13 @@
         <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="daysComplete" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="highestStreak" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="history" optional="YES" attributeType="Transformable" valueTransformerName="" customClassName="Array&lt;Any&gt;" syncable="YES"/>
         <attribute name="lastComplete" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="lastCompleteSave" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="streakEqual" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="HabitData" positionX="-63" positionY="-18" width="128" height="165"/>
+        <element name="HabitData" positionX="207" positionY="-54" width="128" height="180"/>
     </elements>
 </model>

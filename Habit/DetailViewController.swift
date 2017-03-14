@@ -73,6 +73,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         
         getBadges()
         //badgeView.reloadData()
+        historyView.reloadData()
         showDates()
         
     }
@@ -96,6 +97,15 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
             habit.lastCompleteSave = habit.lastComplete
             habit.lastComplete = NSDate()
             habit.currentStreak = habit.currentStreak + 1
+            
+            // will append a check image to the collection view
+            if habit.history == nil {
+                habit.history = ["check"]
+            } else {
+                habit.history?.append("check")
+            }
+            
+            // saves all changes and reloads the view
             DatabaseController.saveContext()
             loadData()
         }
@@ -106,11 +116,17 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         if let habit = habit {
             habit.daysComplete = habit.daysComplete - 1
             habit.lastComplete = habit.lastCompleteSave
-            
             habit.currentStreak = habit.currentStreak - 1
+            
+            // check if highest streak needs to be decremented
             if habit.streakEqual == true {
                 habit.highestStreak = habit.highestStreak - 1
             }
+            
+            // pop the last check from the array
+            habit.history?.removeLast()
+            
+            // saves all changes and reloads the view
             DatabaseController.saveContext()
             loadData()
 
@@ -172,6 +188,14 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
                 if difference >= 2 {
                     habit.currentStreak = 0
                     habit.streakEqual = false
+                    
+                    // Also place "miss" image in the history view
+                    let historyMax = TVC.daysFromStart(date: habit.dateCreated! as Date)
+                
+                    if (habit.history != nil) && (historyMax > (habit.history?.count)!) {
+                        habit.history?.append("miss")
+                    }
+                    
                     DatabaseController.saveContext()
                 }
             }
@@ -187,8 +211,18 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
     
     // MARK: Badges/ History Collection Views
     
+    func getHistory() -> Array<String>{
+        if let habit = habit {
+            let history = habit.history
+            if history != nil {
+                return history as! Array<String>
+            }
+        }
+        return ["first"]
+        
+    }
     var BadgeImages = ["badge1"]
-    var HistoryImages = ["check", "miss"]
+    
     
     // mandatory functions for collection view 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -197,7 +231,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
             return BadgeImages.count
         }
         // for history collection view count
-        return HistoryImages.count
+        return getHistory().count
     }
     
     
@@ -222,7 +256,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         else {
             let cellB = collectionView.dequeueReusableCell(withReuseIdentifier: "HistoryCell", for: indexPath) as! HistoryCell
             
-            cellB.historyImage.image = UIImage(named: HistoryImages[indexPath.row])
+            cellB.historyImage.image = UIImage(named: getHistory()[indexPath.row])
             cellB.historyImage.contentMode = .scaleAspectFit
             
             return cellB
@@ -238,6 +272,9 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         }
         if (habit?.daysComplete)! >= 5 {
             BadgeImages.append("badge3")
+        }
+        if (habit?.daysComplete)! >= 7 {
+            BadgeImages.append("badge4")
         }
         
     }
