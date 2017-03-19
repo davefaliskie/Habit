@@ -71,13 +71,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
             completeBtnEnabled(lastComplete: (habit?.lastComplete!)!)
         }
         
-        getBadges()
-        //badgeView.reloadData()
+        badgeView.reloadData()
         historyView.reloadData()
         showDates()
         
     }
-
     
     // MARK: - Save / Update
 
@@ -222,16 +220,41 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
             }
         }
         return ["first"]
-        
     }
-    var BadgeImages = ["badge1"]
+    
+    
+    func getBadges() -> Array<String>{
+        let habit = self.habit
+        
+        var badges = habit?.badges as? Array <String>
+        
+        if badges == nil {
+            badges = ["first"]
+        }
+        if (habit?.daysComplete)! >= 1 {
+            badges!.append("badge2")
+        }
+        if (habit?.daysComplete)! >= 3 {
+            badges!.append("badge3")
+        }
+        if (habit?.daysComplete)! >= 5 {
+            badges!.append("badge4")
+        }
+        DatabaseController.saveContext()
+        return badges!.reversed()
+    }
+        
+    
+
+
+    
     
     
     // mandatory functions for collection view 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // for badge collection view count
         if collectionView == self.badgeView {
-            return BadgeImages.count
+            return getBadges().count
         }
         // for history collection view count
         return getHistory().count
@@ -249,7 +272,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
             cell.layer.borderColor = UIColor.lightGray.cgColor
             cell.layer.borderWidth = 3
             
-            cell.badgeImage.image = UIImage(named: BadgeImages[indexPath.row])
+            
+            cell.badgeImage.image = UIImage(named: getBadges()[indexPath.row])
             cell.badgeImage.contentMode = .scaleAspectFit
             
             return cell
@@ -268,19 +292,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
     }
     
     
-    // function to give a badge upon first completion of task 
-    func getBadges() {
-        if (habit?.daysComplete)! >= 1 {
-            BadgeImages.append("badge2")
-        }
-        if (habit?.daysComplete)! >= 5 {
-            BadgeImages.append("badge3")
-        }
-        if (habit?.daysComplete)! >= 7 {
-            BadgeImages.append("badge4")
-        }
-        
-    }
+
     
     
     
@@ -299,6 +311,20 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         startDate.text = String(describing: start)
         
     }
+    
+    
+    // Segue to Badges View Controller
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showBadges" {
+            
+            guard let destinationController = segue.destination as? BadgeTableViewController else {return}
+            print(getBadges())
+            destinationController.badges = getBadges()
+            
+            
+        }
+    }
+
     
     
     

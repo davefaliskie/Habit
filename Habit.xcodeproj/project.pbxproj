@@ -21,6 +21,8 @@
 		F6BEAB721E609416005CF796 /* HabitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BEAB711E609416005CF796 /* HabitUITests.swift */; };
 		F6BEAB801E6095AA005CF796 /* DatabaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BEAB7F1E6095AA005CF796 /* DatabaseController.swift */; };
 		F6E22F331E664DA0001211E3 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E22F321E664DA0001211E3 /* TableViewController.swift */; };
+		F6F3C1971E7F22FB008E04AA /* BadgeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F3C1961E7F22FB008E04AA /* BadgeTableViewController.swift */; };
+		F6F3C1991E7F2AC9008E04AA /* BadgesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F3C1981E7F2AC9008E04AA /* BadgesTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		F6BEAB731E609416005CF796 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6BEAB7F1E6095AA005CF796 /* DatabaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseController.swift; sourceTree = "<group>"; };
 		F6E22F321E664DA0001211E3 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		F6F3C1961E7F22FB008E04AA /* BadgeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeTableViewController.swift; sourceTree = "<group>"; };
+		F6F3C1981E7F2AC9008E04AA /* BadgesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgesTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +124,8 @@
 				F671104C1E67A20D000398B8 /* DetailViewController.swift */,
 				F6A80BB21E7108E600C6B0FD /* BadgesCell.swift */,
 				F676C9BA1E74B44E00A08A7F /* HistoryCell.swift */,
+				F6F3C1961E7F22FB008E04AA /* BadgeTableViewController.swift */,
+				F6F3C1981E7F2AC9008E04AA /* BadgesTableViewCell.swift */,
 				F6BEAB521E609416005CF796 /* Main.storyboard */,
 				F6BEAB5A1E609416005CF796 /* LaunchScreen.storyboard */,
 				F6BEAB5D1E609416005CF796 /* Info.plist */,
@@ -284,11 +290,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6BEAB801E6095AA005CF796 /* DatabaseController.swift in Sources */,
+				F6F3C1971E7F22FB008E04AA /* BadgeTableViewController.swift in Sources */,
 				F6A80BB31E7108E600C6B0FD /* BadgesCell.swift in Sources */,
 				F6BEAB571E609416005CF796 /* Habit.xcdatamodeld in Sources */,
 				F676C9BB1E74B44E00A08A7F /* HistoryCell.swift in Sources */,
 				F6BEAB511E609416005CF796 /* ViewController.swift in Sources */,
 				F671104D1E67A20D000398B8 /* DetailViewController.swift in Sources */,
+				F6F3C1991E7F2AC9008E04AA /* BadgesTableViewCell.swift in Sources */,
 				F6E22F331E664DA0001211E3 /* TableViewController.swift in Sources */,
 				F68032D01E6C952100898D08 /* CustomCell.swift in Sources */,
 				F6BEAB4F1E609416005CF796 /* AppDelegate.swift in Sources */,
