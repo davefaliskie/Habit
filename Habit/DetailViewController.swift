@@ -97,6 +97,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
             habit.lastCompleteSave = habit.lastComplete
             habit.lastComplete = NSDate()
             habit.currentStreak = habit.currentStreak + 1
+            habit.completeToday = true
             
             // will append a check image to the collection view
             if habit.history == nil {
@@ -117,6 +118,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
             habit.daysComplete = habit.daysComplete - 1
             habit.lastComplete = habit.lastCompleteSave
             habit.currentStreak = habit.currentStreak - 1
+            habit.completeToday = false
             
             // check if highest streak needs to be decremented
             if habit.streakEqual == true {
@@ -143,6 +145,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
             completeBtn.isEnabled = false
             notCompleteBtn.isEnabled = true
         } else {
+            habit?.completeToday = false
             completeBtn.isEnabled = true
             notCompleteBtn.isEnabled = false
         }

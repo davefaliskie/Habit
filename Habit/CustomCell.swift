@@ -16,6 +16,10 @@ class CustomCell: UITableViewCell {
     @IBOutlet weak var daysCompleteLabel: UILabel!
     @IBOutlet weak var dateStarted: UILabel!
     @IBOutlet weak var daysFromStart: UILabel!
+    @IBOutlet weak var completeImage: UIImageView!
+    
+
+
     
     
     override func awakeFromNib() {

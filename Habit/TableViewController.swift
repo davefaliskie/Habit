@@ -68,8 +68,24 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.dateStarted?.text = formatDate(date: habit.dateCreated!)
         cell.daysFromStart?.text = "of \(String(daysFromStart(date: habit.dateCreated! as Date) + 1))"
         
+        // shows if the habit was completed today in the cell
+        if habit.completeToday == true {
+            cell.completeImage.image = UIImage(named: "check")
+        } else {
+            cell.completeImage.image = UIImage(named: "miss")
+        }
+        
+        
+       cell.accessoryType = .disclosureIndicator
+            
+        
+        // for the switch
+        
+        
         return cell
     }
+    
+    
     
     
     //String MM-dd-yy to Date Convert
@@ -129,7 +145,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     
-    // MARK: - Navigation
+    
+    // MARK: - Navigation and Segue
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showHabit" {
@@ -142,7 +159,6 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-
 }
 
 
