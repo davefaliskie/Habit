@@ -69,14 +69,10 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.daysFromStart?.text = "of \(String(daysFromStart(date: habit.dateCreated! as Date) + 1))"
         
         // shows if the habit was completed today in the cell
-        if habit.completeToday == true {
-            cell.completeImage.image = UIImage(named: "check")
-        } else {
-            cell.completeImage.image = UIImage(named: "miss")
-        }
+        isCompletedToday(habit: habit, cell: cell)
+    
         
-        
-       cell.accessoryType = .disclosureIndicator
+        cell.accessoryType = .disclosureIndicator
             
         
         // for the switch
@@ -158,6 +154,21 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
         }
     }
+    
+    // MARK: - completed today
+    
+    func isCompletedToday(habit: HabitData, cell: CustomCell) {
+        let difference = daysFromStart(date: habit.lastComplete! as Date)
+        
+        if (difference == 0) {
+            habit.completeToday = true
+            cell.completeImage.image = UIImage(named: "check")
+        } else {
+            habit.completeToday = false
+            cell.completeImage.image = UIImage(named: "miss")
+        }
+    }
+
     
 }
 
