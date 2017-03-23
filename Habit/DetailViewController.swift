@@ -229,16 +229,16 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         var badges = habit?.badges as? Array <String>
         
         if badges == nil {
-            badges = ["first"]
+            badges = ["A new habit was created!"]
         }
         if (habit?.daysComplete)! >= 1 {
-            badges!.append("badge2")
+            badges!.append("Completed your first day")
         }
         if (habit?.daysComplete)! >= 3 {
-            badges!.append("badge3")
+            badges!.append("3x")
         }
         if (habit?.daysComplete)! >= 5 {
-            badges!.append("badge4")
+            badges!.append("5x")
         }
         DatabaseController.saveContext()
         return badges!.reversed()

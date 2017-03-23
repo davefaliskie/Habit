@@ -55,6 +55,7 @@ class BadgeTableViewController: UITableViewController  {
         
         let badge = badges[indexPath.row]
         cell.badgeImage.image = UIImage(named: badge)
+        cell.badgeTitle.text = badge
         
         return cell
         

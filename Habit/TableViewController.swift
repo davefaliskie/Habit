@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -20,8 +21,9 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         tableView.dataSource = self
         tableView.delegate = self
-        
         tableView.rowHeight = 130
+        
+        scheduleNotification()
 
     }
     
@@ -158,21 +160,69 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     // MARK: - completed today
     
     func isCompletedToday(habit: HabitData, cell: CustomCell) {
-        let difference = daysFromStart(date: habit.lastComplete! as Date)
-        
-        if (difference == 0) {
-            habit.completeToday = true
-            cell.completeImage.image = UIImage(named: "check")
-        } else {
-            habit.completeToday = false
-            cell.completeImage.image = UIImage(named: "miss")
+        if habit.lastComplete != nil {
+            let difference = daysFromStart(date: habit.lastComplete! as Date)
+            
+            if (difference == 0) {
+                habit.completeToday = true
+                cell.completeImage.image = UIImage(named: "check")
+            } else {
+                habit.completeToday = false
+                cell.completeImage.image = UIImage(named: "miss")
+            }
         }
     }
-
+    
+    
+    
+    // MARK: User Notifications 
+    
+    func scheduleNotification() {
+        let content = UNMutableNotificationContent()
+        content.title = "Check Yo Self"
+        content.subtitle = "From Past Self"
+        content.body = "Did you remember to complete all the habits you are working towards?"
+        //content.badge = 1
+        content.sound = UNNotificationSound.default()
+        content.userInfo = ["id": 42]
+        
+        let imageURL = Bundle.main.url(forResource: "blue", withExtension: "png")
+        let attachment = try! UNNotificationAttachment(identifier: "blue.png", url: imageURL!, options: nil)
+        content.attachments = [attachment]
+        
+        // for testing kick off notification 10 seconds after launch
+        // let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10.0, repeats: false)
+        
+        // kick off notification everyday at 2 PM
+        var date = DateComponents()
+        date.hour = 14
+        date.minute = 22
+        let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
+        
+        let request = UNNotificationRequest(identifier: "222.notification", content: content, trigger: trigger)
+        
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.add(request, withCompletionHandler: nil)
+        notificationCenter.delegate = self
+        
+        
+    }
     
 }
 
 
+extension TableViewController: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print(response.notification.request.content.userInfo)
+        completionHandler()
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        // this will actually display the notification while in the app
+        completionHandler([.alert, .sound])
+    }
+}
 
 
 
