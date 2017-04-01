@@ -185,7 +185,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
                 }
                 
                 // reset current streak to zero if a day is missed
-                let difference = TVC.daysFromStart(date: habit.lastComplete as! Date)
+                let difference = TVC.daysFromStart(date: habit.lastComplete! as Date)
                 if difference >= 2 {
                     habit.currentStreak = 0
                     habit.streakEqual = false
@@ -229,17 +229,67 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         var badges = habit?.badges as? Array <String>
         
         if badges == nil {
-            badges = ["A new habit was created!"]
+            badges = ["one"]
+            //badges = ["one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"]
         }
-        if (habit?.daysComplete)! >= 1 {
-            badges!.append("Completed your first day")
+//        if (habit?.daysComplete)! >= 1 {
+//            badges!.append("one")
+//        }
+        if (habit?.daysComplete)! >= 2 {
+            badges!.append("two")
         }
         if (habit?.daysComplete)! >= 3 {
-            badges!.append("3x")
+            badges!.append("three")
+        }
+        if (habit?.daysComplete)! >= 4 {
+            badges!.append("four")
         }
         if (habit?.daysComplete)! >= 5 {
-            badges!.append("5x")
+            badges!.append("five")
         }
+        if (habit?.daysComplete)! >= 6 {
+            badges!.append("six")
+        }
+        if (habit?.daysComplete)! >= 7 {
+            badges!.append("seven")
+        }
+        if (habit?.daysComplete)! >= 8 {
+            badges!.append("eight")
+        }
+        if (habit?.daysComplete)! >= 9 {
+            badges!.append("nine")
+        }
+        if (habit?.daysComplete)! >= 10 {
+            badges!.append("ten")
+        }
+        if (habit?.daysComplete)! >= 11 {
+            badges!.append("eleven")
+        }
+        if (habit?.daysComplete)! >= 12 {
+            badges!.append("twelve")
+        }
+        if (habit?.daysComplete)! >= 13 {
+            badges!.append("thirteen")
+        }
+        if (habit?.daysComplete)! >= 14 {
+            badges!.append("fourteen")
+        }
+        if (habit?.daysComplete)! >= 15 {
+            badges!.append("fifteen")
+        }
+        if (habit?.daysComplete)! >= 16 {
+            badges!.append("sixteen")
+        }
+        if (habit?.daysComplete)! >= 17 {
+            badges!.append("seventeen")
+        }
+        if (habit?.daysComplete)! >= 18 {
+            badges!.append("eighteen")
+        }
+        if (habit?.daysComplete)! >= 19 {
+            badges!.append("nineteen")
+        }
+
         DatabaseController.saveContext()
         return badges!.reversed()
     }
@@ -270,7 +320,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
             // style to make round and add border
             cell.layer.cornerRadius = 50
             cell.layer.borderColor = UIColor.lightGray.cgColor
-            cell.layer.borderWidth = 3
+            cell.layer.borderWidth = 0.5
             
             
             cell.badgeImage.image = UIImage(named: getBadges()[indexPath.row])
@@ -299,7 +349,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
     // MARK: Display dates data
     func showDates() {
         if habit?.lastComplete != nil {
-            let daysDifference = TVC.daysFromStart(date: habit?.lastComplete as! Date)
+            let daysDifference = TVC.daysFromStart(date: habit?.lastComplete! as! Date)
             difference.text = String(describing: daysDifference)
         }
         if habit?.lastComplete != nil {
