@@ -186,14 +186,14 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         content.sound = UNNotificationSound.default()
         content.userInfo = ["id": 42]
         
-        let imageURL = Bundle.main.url(forResource: "blue", withExtension: "png")
-        let attachment = try! UNNotificationAttachment(identifier: "blue.png", url: imageURL!, options: nil)
-        content.attachments = [attachment]
+        // let imageURL = Bundle.main.url(forResource: "blue", withExtension: "png")
+        // let attachment = try! UNNotificationAttachment(identifier: "blue.png", url: imageURL!, options: nil)
+        // content.attachments = [attachment]
         
         // for testing kick off notification 10 seconds after launch
         // let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10.0, repeats: false)
         
-        // kick off notification everyday at 2 PM
+        // kick off notification everyday at 2:22 PM
         var date = DateComponents()
         date.hour = 14
         date.minute = 22

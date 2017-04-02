@@ -101,7 +101,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
             if habit.history == nil {
                 habit.history = ["check"]
             } else {
-                habit.history?.append("check")
+                habit.history?.insert("check", at: 0)
             }
             
             // saves all changes and reloads the view
@@ -123,8 +123,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
                 habit.highestStreak = habit.highestStreak - 1
             }
             
-            // pop the last check from the array
-            habit.history?.removeLast()
+            // pop the first check from the array
+            habit.history?.removeFirst()
             
             // saves all changes and reloads the view
             DatabaseController.saveContext()
@@ -193,8 +193,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
                     // Also place "miss" image in the history view
                     let historyMax = TVC.daysFromStart(date: habit.dateCreated! as Date)
                 
-                    if (habit.history != nil) && (historyMax > (habit.history?.count)!) {
-                        habit.history?.append("miss")
+                    while (habit.history != nil) && (historyMax > (habit.history?.count)!) {
+                        habit.history?.insert("miss", at: 0)
                     }
                     
                     DatabaseController.saveContext()
@@ -230,11 +230,13 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         
         if badges == nil {
             badges = ["one"]
-            //badges = ["one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"]
+            //badges = ["one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen","X3","X5","X7","X10","X15","X20","X25","X30"]
         }
 //        if (habit?.daysComplete)! >= 1 {
 //            badges!.append("one")
 //        }
+        
+        // Build Flower of Life
         if (habit?.daysComplete)! >= 2 {
             badges!.append("two")
         }
@@ -288,6 +290,40 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         }
         if (habit?.daysComplete)! >= 19 {
             badges!.append("nineteen")
+        }
+        
+        //Streak Badges 
+        if (habit?.highestStreak)! >= 3{
+            badges!.append("X3")
+        }
+        if (habit?.highestStreak)! >= 5{
+            badges!.append("X5")
+        }
+        if (habit?.highestStreak)! >= 7{
+            badges!.append("X7")
+        }
+        if (habit?.highestStreak)! >= 10{
+            badges!.append("X10")
+        }
+        if (habit?.highestStreak)! >= 15{
+            badges!.append("X15")
+        }
+        if (habit?.highestStreak)! >= 20{
+            badges!.append("X20")
+        }
+        if (habit?.highestStreak)! >= 25{
+            badges!.append("X25")
+        }
+        if (habit?.highestStreak)! >= 30{
+            badges!.append("X30")
+        }
+        
+        // missed more then 3 days 
+        if habit?.lastComplete != nil {
+            let daysDifference = TVC.daysFromStart(date: habit?.lastComplete! as! Date)
+            if daysDifference > 3 {
+                badges!.append("ZZZ")
+            }
         }
 
         DatabaseController.saveContext()
