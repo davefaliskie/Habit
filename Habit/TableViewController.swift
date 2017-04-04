@@ -21,7 +21,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.rowHeight = 130
+        tableView.rowHeight = 90
         
         scheduleNotification()
 
@@ -122,25 +122,101 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return DateInFormat
     }
     
+//    
+//    //MARK: deleting
+//    
+//    // function to delete data from table using swipe to delete
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete{
+//            let context = DatabaseController.getContext()
+//            let item = habits[indexPath.row] as NSManagedObject
+//            context.delete(item)
+//            fetchData()
+//            DatabaseController.saveContext()
+//        }
+//        tableView.reloadData()
+//    }
+//    
+//    // function to deleat the table row
+//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+//        return.delete
+//    }
     
-    //MARK: deleting
     
-    // function to delete data from table using swipe to delete
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete{
-            let context = DatabaseController.getContext()
-            let item = habits[indexPath.row] as NSManagedObject
-            context.delete(item)
-            fetchData()
+    // MARK: custom swipe buttons
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let habit = self.habits[indexPath.row]
+        
+        // Complete Button
+        let completeAction = UITableViewRowAction(style: .normal, title: "   Complete   ") {
+            (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
+            
+            // activity that will happen
+            habit.daysComplete = habit.daysComplete + 1
+            habit.lastCompleteSave = habit.lastComplete
+            habit.lastComplete = NSDate()
+            habit.currentStreak = habit.currentStreak + 1
+            habit.completeToday = true
+            // will append a check image to the collection view
+            if habit.history == nil {
+                habit.history = ["check"]
+            } else {
+                habit.history?.insert("check", at: 0)
+            }
+            // saves all changes and reloads the view
             DatabaseController.saveContext()
+            tableView.reloadData()
+
         }
-        tableView.reloadData()
+        
+        // NOT Complete Button
+        let notCompleteAction = UITableViewRowAction(style: .normal, title: " Not Complete ") {
+            (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
+            
+            // activity that will happen
+            habit.daysComplete = habit.daysComplete - 1
+            habit.lastComplete = habit.lastCompleteSave
+            habit.currentStreak = habit.currentStreak - 1
+            habit.completeToday = false
+            // check if highest streak needs to be decremented
+            if habit.streakEqual == true {
+                habit.highestStreak = habit.highestStreak - 1
+            }
+            // pop the first check from the array
+            habit.history?.removeFirst()
+            // saves all changes and reloads the view
+            DatabaseController.saveContext()
+            tableView.reloadData()
+            
+        }
+        
+        // DELETE Button
+        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") {
+            (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
+            let context = DatabaseController.getContext()
+            context.delete(habit)
+            self.fetchData()
+            DatabaseController.saveContext()
+            tableView.reloadData()
+
+            
+        }
+
+        
+        // give buttons color
+        completeAction.backgroundColor = UIColor(red:0.03, green:0.49, blue:0.55, alpha:1.0)
+        notCompleteAction.backgroundColor = UIColor(red:0.03, green:0.49, blue:0.55, alpha:1.0)
+        
+        
+        if habit.completeToday == false {
+            return [completeAction, deleteAction]
+        } else {
+            return [notCompleteAction, deleteAction]
+        }
+        
     }
     
-    // function to deleat the table row
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        return.delete
-    }
+    
     
     
     
@@ -165,10 +241,10 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             if (difference == 0) {
                 habit.completeToday = true
-                cell.completeImage.image = UIImage(named: "check")
+                cell.completeImage.image = UIImage(named: "green")
             } else {
                 habit.completeToday = false
-                cell.completeImage.image = UIImage(named: "miss")
+                cell.completeImage.image = UIImage(named: "red")
             }
         }
     }
