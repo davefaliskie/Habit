@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16D32" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16E195" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="HabitData" representedClassName="HabitData" syncable="YES" codeGenerationType="class">
         <attribute name="badges" optional="YES" attributeType="Transformable" customClassName="Array&lt;Any&gt;" syncable="YES"/>
         <attribute name="completeToday" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
@@ -12,8 +12,9 @@
         <attribute name="lastCompleteSave" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="streakEqual" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="was_zzz" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="HabitData" positionX="207" positionY="-54" width="128" height="210"/>
+        <element name="HabitData" positionX="207" positionY="-54" width="128" height="225"/>
     </elements>
 </model>

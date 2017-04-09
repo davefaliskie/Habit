@@ -252,9 +252,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
             badges = ["one"]
             //badges = ["one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen","X3","X5","X7","X10","X15","X20","X25","X30"]
         }
-//        if (habit?.daysComplete)! >= 1 {
-//            badges!.append("one")
-//        }
         
         // Build Flower of Life
         if (habit?.daysComplete)! >= 2 {
@@ -343,7 +340,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
             let daysDifference = TVC.daysFromStart(date: (habit?.lastComplete)! as Date)
             if daysDifference > 3 {
                 badges!.append("ZZZ")
+                habit?.was_zzz = true
             }
+        }
+        if habit?.was_zzz == true {
+            badges!.insert("ZZZ", at: 0)
         }
 
         DatabaseController.saveContext()
