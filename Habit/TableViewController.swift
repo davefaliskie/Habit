@@ -159,9 +159,9 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             habit.completeToday = true
             // will append a check image to the collection view
             if habit.history == nil {
-                habit.history = ["check"]
+                habit.history = ["green"]
             } else {
-                habit.history?.insert("check", at: 0)
+                habit.history?.insert("green", at: 0)
             }
             // saves all changes and reloads the view
             DatabaseController.saveContext()
@@ -170,7 +170,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         // NOT Complete Button
-        let notCompleteAction = UITableViewRowAction(style: .normal, title: " Not Complete ") {
+        let notCompleteAction = UITableViewRowAction(style: .normal, title: "Not Complete") {
             (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             
             // activity that will happen
@@ -199,8 +199,15 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             DatabaseController.saveContext()
             tableView.reloadData()
 
-            
         }
+        
+        let badges = "\(habit.currentStreak) streak"
+        // DELETE Button
+        let badgeAction = UITableViewRowAction(style: .normal, title: badges) {
+            (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
+        }
+        
+        
 
         
         // give buttons color
@@ -209,9 +216,9 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         
         if habit.completeToday == false {
-            return [completeAction, deleteAction]
+            return [completeAction, badgeAction, deleteAction]
         } else {
-            return [notCompleteAction, deleteAction]
+            return [notCompleteAction, badgeAction, deleteAction]
         }
         
     }

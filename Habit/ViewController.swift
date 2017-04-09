@@ -9,11 +9,12 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController, UITextFieldDelegate{
+class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
 
     
     @IBOutlet weak var habitNameTF: UITextField!
     @IBOutlet weak var saveBtn: UIBarButtonItem!
+    @IBOutlet weak var pickerView: UIPickerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,9 @@ class ViewController: UIViewController, UITextFieldDelegate{
         
         //Setting the Delegate for the TextField
         habitNameTF.delegate = self
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        
         
         //Default checking and disabling of the Button
         if (habitNameTF.text?.isEmpty)!{
@@ -72,6 +76,49 @@ class ViewController: UIViewController, UITextFieldDelegate{
         
         // return home
         dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
+    //MARK: Picker View
+    
+    var habitChoices = ["Select a habit",
+                        "Run",
+                        "Read",
+                        "Write",
+                        "Strech",
+                        "Wake Up Early",
+                        "Exercise",
+                        "Pray",
+                        "Meditate",
+                        "Drink Water",
+                        "Journal",
+                        "Laugh",
+                        "Eat Healthy",
+                        "Practice a New Language",
+                        "Practice an Instrument",
+                        "Floss",
+                        "Take a Vitamin"
+                        ]
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return habitChoices.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return habitChoices[row]
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        habitNameTF.text = habitChoices[row]
+        if habitNameTF.text == habitChoices[0] {
+            habitNameTF.text = ""
+            saveBtn.isEnabled = false
+        }else {
+            saveBtn.isEnabled = true
+        }
     }
     
 }

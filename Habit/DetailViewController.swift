@@ -10,20 +10,20 @@ import UIKit
 
 class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
 
+    
+    @IBOutlet weak var habitNameLabel: UILabel!
     @IBOutlet weak var totalCompleted: UILabel!
-    @IBOutlet weak var habitNameTF: UITextField!
-    @IBOutlet weak var saveBtn: UIBarButtonItem!
     @IBOutlet weak var completeBtn: UIButton!
     @IBOutlet weak var notCompleteBtn: UIButton!
     @IBOutlet weak var badgeView: UICollectionView!
     @IBOutlet weak var historyView: UICollectionView!
     @IBOutlet weak var currentStreak: UILabel!
     @IBOutlet weak var highestStreak: UILabel!
+    @IBOutlet weak var badgeCountLable: UILabel!
     
     // testing values data
     @IBOutlet weak var startDate: UILabel!
     @IBOutlet weak var lastCompleteDate: UILabel!
-    @IBOutlet weak var difference: UILabel!
     
     let TVC = TableViewController()
     
@@ -31,9 +31,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //Setting the Delegate for the TextField
-        habitNameTF.delegate = self
         
         // set Collect view delegates
         badgeView.delegate = self
@@ -46,6 +43,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         self.view.addSubview(historyView)
         
         loadData()
+        correct()
 
     }
     
@@ -58,10 +56,17 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         guard let habitDaysComplete = habit?.daysComplete else {fatalError("Cannot show detail without an item")}
         guard let currentStreakCount = habit?.currentStreak else {fatalError("Error with current streak")}
         guard let highestStreakCount = habit?.highestStreak else{fatalError("Error with highest Streak")}
-        habitNameTF.text = habitName
+        
+        habitNameLabel.text = String(habitName)
         totalCompleted.text = String(habitDaysComplete)
         currentStreak.text = String(currentStreakCount)
         highestStreak.text = String(highestStreakCount)
+        
+        
+        // Make labels circle
+        makeCircle(label: totalCompleted)
+        makeCircle(label: currentStreak)
+        makeCircle(label: highestStreak)
         
         // sets the 'Complete' btns based on daily activity
         if habit?.lastComplete == nil {
@@ -77,15 +82,25 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         
     }
     
-    // MARK: - Save / Update
-
-    @IBAction func savePressed(_ sender: Any) {
-        if let habit = habit {
-            habit.name = habitNameTF.text
-            DatabaseController.saveContext()
-            _ = navigationController?.popViewController(animated: true)
-        }
+    // MARK: make labels circle
+    func makeCircle(label: UILabel) {
+        label.layer.cornerRadius = label.frame.width/2
+        label.layer.borderWidth = 0.5
+        label.layer.borderWidth = 5.0
+        label.layer.borderColor = UIColor(red:0.03, green:0.49, blue:0.55, alpha:1.0).cgColor
     }
+    
+    // MARK: - Save / Update
+    // removed... No need to allow user to edit habit title.
+
+//    @IBAction func savePressed(_ sender: Any) {
+//        if let habit = habit {
+//            habit.name = habitNameTF.text
+//            DatabaseController.saveContext()
+//            _ = navigationController?.popViewController(animated: true)
+//        }
+//    }
+    
     
     // MARK: Completed buttons and logic
     // Add one to days complete when pressed
@@ -99,9 +114,9 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
             
             // will append a check image to the collection view
             if habit.history == nil {
-                habit.history = ["check"]
+                habit.history = ["green"]
             } else {
-                habit.history?.insert("check", at: 0)
+                habit.history?.insert("green", at: 0)
             }
             
             // saves all changes and reloads the view
@@ -142,32 +157,38 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         if (difference == 0) {
             completeBtn.isEnabled = false
             notCompleteBtn.isEnabled = true
+            
+            completeBtn.isHidden = true
+            notCompleteBtn.isHidden = false
         } else {
             habit?.completeToday = false
             completeBtn.isEnabled = true
             notCompleteBtn.isEnabled = false
+            
+            completeBtn.isHidden = false
+            notCompleteBtn.isHidden = true
         }
         
     }
     
     
     
-    // MARK: Disable the save button until some text is entered
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        // Find out what the text field will be after adding the current edit
-        let text = (habitNameTF.text! as NSString).replacingCharacters(in: range, with: string)
-        
-        //Checking if the input field is empty
-        if text.trimmingCharacters(in: CharacterSet.whitespaces).isEmpty{
-            // Disable Save Button
-            saveBtn.isEnabled = false
-        } else {
-            // Enable Save Button
-            saveBtn.isEnabled = true
-        }
-        return true
-    }
+//    // MARK: Disable the save button until some text is entered
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        
+//        // Find out what the text field will be after adding the current edit
+//        let text = (habitNameTF.text! as NSString).replacingCharacters(in: range, with: string)
+//        
+//        //Checking if the input field is empty
+//        if text.trimmingCharacters(in: CharacterSet.whitespaces).isEmpty{
+//            // Disable Save Button
+//            saveBtn.isEnabled = false
+//        } else {
+//            // Enable Save Button
+//            saveBtn.isEnabled = true
+//        }
+//        return true
+//    }
     
     
     
@@ -194,7 +215,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
                     let historyMax = TVC.daysFromStart(date: habit.dateCreated! as Date)
                 
                     while (habit.history != nil) && (historyMax > (habit.history?.count)!) {
-                        habit.history?.insert("miss", at: 0)
+                        habit.history?.insert("red", at: 0)
                     }
                     
                     DatabaseController.saveContext()
@@ -204,8 +225,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
     }
     
     
-    
-    
+
     
     
     
@@ -320,13 +340,17 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         
         // missed more then 3 days 
         if habit?.lastComplete != nil {
-            let daysDifference = TVC.daysFromStart(date: habit?.lastComplete! as! Date)
+            let daysDifference = TVC.daysFromStart(date: (habit?.lastComplete)! as Date)
             if daysDifference > 3 {
                 badges!.append("ZZZ")
             }
         }
 
         DatabaseController.saveContext()
+        
+        badgeCountLable.text = String(describing: badges!.count)
+        
+        
         return badges!.reversed()
     }
         
@@ -384,10 +408,9 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
     
     // MARK: Display dates data
     func showDates() {
-        if habit?.lastComplete != nil {
-            let daysDifference = TVC.daysFromStart(date: habit?.lastComplete! as! Date)
-            difference.text = String(describing: daysDifference)
-        }
+//        if habit?.lastComplete != nil {
+//            let daysDifference = TVC.daysFromStart(date: habit?.lastComplete! as! Date)
+//        }
         if habit?.lastComplete != nil {
             let last = TVC.formatDate(date: (habit?.lastComplete)!)
             lastCompleteDate.text = String(describing: last)
@@ -412,7 +435,20 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
     }
 
     
-    
+    func correct() {
+        if let habit = habit {
+            if  (habit.history != nil) {
+                for i in 0..<getHistory().count {
+                    if getHistory()[i] == "check" {
+                        habit.history?[i] = "green"
+                    }
+                    if getHistory()[i] == "miss" {
+                        habit.history?[i] = "red"
+                    }
+                }
+            }
+        }
+    }
     
     
     
