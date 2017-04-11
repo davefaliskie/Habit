@@ -70,8 +70,10 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         
         // sets the 'Complete' btns based on daily activity
         if habit?.lastComplete == nil {
-            notCompleteBtn.isEnabled = false
             completeBtn.isEnabled = true
+            completeBtn.isHidden = false
+            notCompleteBtn.isEnabled = false
+            notCompleteBtn.isHidden = true
         } else {
             completeBtnEnabled(lastComplete: (habit?.lastComplete!)!)
         }

@@ -10,7 +10,6 @@
 		F671104D1E67A20D000398B8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F671104C1E67A20D000398B8 /* DetailViewController.swift */; };
 		F676C9BB1E74B44E00A08A7F /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F676C9BA1E74B44E00A08A7F /* HistoryCell.swift */; };
 		F68032D01E6C952100898D08 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68032CF1E6C952100898D08 /* CustomCell.swift */; };
-		F69F40E71E8356D000C599FA /* blue.png in Resources */ = {isa = PBXBuildFile; fileRef = F69F40E61E8356D000C599FA /* blue.png */; };
 		F6A30CFF1E8F64020065977A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6A30CFE1E8F64020065977A /* Assets.xcassets */; };
 		F6A80BB31E7108E600C6B0FD /* BadgesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A80BB21E7108E600C6B0FD /* BadgesCell.swift */; };
 		F6BEAB4F1E609416005CF796 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BEAB4E1E609416005CF796 /* AppDelegate.swift */; };
@@ -47,7 +46,6 @@
 		F671104C1E67A20D000398B8 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F676C9BA1E74B44E00A08A7F /* HistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		F68032CF1E6C952100898D08 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
-		F69F40E61E8356D000C599FA /* blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blue.png; sourceTree = "<group>"; };
 		F6A30CFE1E8F64020065977A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F6A80BB21E7108E600C6B0FD /* BadgesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgesCell.swift; sourceTree = "<group>"; };
 		F6BEAB4B1E609416005CF796 /* Habit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,7 +130,6 @@
 				F6BEAB5A1E609416005CF796 /* LaunchScreen.storyboard */,
 				F6BEAB5D1E609416005CF796 /* Info.plist */,
 				F6BEAB551E609416005CF796 /* Habit.xcdatamodeld */,
-				F69F40E61E8356D000C599FA /* blue.png */,
 			);
 			path = Habit;
 			sourceTree = "<group>";
@@ -268,7 +265,6 @@
 				F6BEAB5C1E609416005CF796 /* LaunchScreen.storyboard in Resources */,
 				F6BEAB541E609416005CF796 /* Main.storyboard in Resources */,
 				F6A30CFF1E8F64020065977A /* Assets.xcassets in Resources */,
-				F69F40E71E8356D000C599FA /* blue.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
