@@ -428,14 +428,17 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
     // Segue to Badges View Controller
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showBadges" {
-            
             guard let destinationController = segue.destination as? BadgeTableViewController else {return}
-            print(getBadges())
             destinationController.badges = getBadges()
-            
-            
+        }
+        if segue.identifier == "showNotes" {
+            guard let destinationController = segue.destination as? NotesViewController else {return}
+            let habit = self.habit
+            print("used segue")
+            destinationController.habit = habit
         }
     }
+    
 
     
     func correct() {

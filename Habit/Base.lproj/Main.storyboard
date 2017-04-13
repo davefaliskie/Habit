@@ -293,6 +293,15 @@
                                 <color key="textColor" red="1" green="0.35294117650000001" blue="0.37254901959999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KFA-VK-JgN">
+                                <rect key="frame" x="296" y="198" width="63" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Notes"/>
+                                <connections>
+                                    <segue destination="XdO-EO-G4R" kind="show" identifier="showNotes" id="JeC-b5-RWp"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -313,7 +322,38 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d2j-Ea-lMd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-559.20000000000005" y="662.51874062968523"/>
+            <point key="canvasLocation" x="-559.20000000000005" y="951.27436281859082"/>
+        </scene>
+        <!--Notes View Controller-->
+        <scene sceneID="z5Q-vK-nhn">
+            <objects>
+                <viewController id="XdO-EO-G4R" customClass="NotesViewController" customModule="Habit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JAQ-S2-DYa"/>
+                        <viewControllerLayoutGuide type="bottom" id="6us-lg-i4M"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="a56-eh-Y4N">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WUS-P8-zy7">
+                                <rect key="frame" x="16" y="72" width="343" height="575"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.1176470588" green="0.6588235294" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1176470588" green="0.6588235294" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="textField" destination="WUS-P8-zy7" id="8Oy-lF-b7R"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zbP-gF-kSB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="292" y="1280.5097451274364"/>
         </scene>
         <!--Badge Table View Controller-->
         <scene sceneID="7Sv-ic-96Y">
@@ -362,7 +402,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brz-N1-q1s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="272.80000000000001" y="662.51874062968523"/>
+            <point key="canvasLocation" x="290" y="610"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
