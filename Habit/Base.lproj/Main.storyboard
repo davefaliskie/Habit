@@ -342,7 +342,7 @@
                                 <color key="backgroundColor" red="0.1176470588" green="0.6588235294" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.1176470588" green="0.6588235294" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>

@@ -20,6 +20,8 @@ class NotesViewController: UIViewController, UITextViewDelegate {
         if habit?.notes != nil {
             textField.text = habit?.notes!
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(NotesViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NotesViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     
     }
 
@@ -29,6 +31,23 @@ class NotesViewController: UIViewController, UITextViewDelegate {
         DatabaseController.saveContext()
     }
     
+    
+    //MARK: Show/ Hide keyboard
+    func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+    }
 
     
 }
