@@ -22,7 +22,12 @@ class NotesViewController: UIViewController, UITextViewDelegate {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(NotesViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(NotesViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-    
+        
+        //Looks for single or multiple taps.
+        let tap: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(NotesViewController.dismissKeyboard))
+        tap.direction = UISwipeGestureRecognizerDirection.down
+        view.addGestureRecognizer(tap)
+
     }
 
     // saves any text that is modified
@@ -37,6 +42,8 @@ class NotesViewController: UIViewController, UITextViewDelegate {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0{
                 self.view.frame.origin.y -= keyboardSize.height
+                self.textField.frame.size.height -= keyboardSize.height
+                self.textField.frame.origin.y += keyboardSize.height
             }
         }
     }
@@ -45,8 +52,16 @@ class NotesViewController: UIViewController, UITextViewDelegate {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y != 0{
                 self.view.frame.origin.y += keyboardSize.height
+                self.textField.frame.size.height += keyboardSize.height
+                self.textField.frame.origin.y -= keyboardSize.height
             }
         }
+    }
+    
+    //Calls this function when the tap is recognized.
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
 
     

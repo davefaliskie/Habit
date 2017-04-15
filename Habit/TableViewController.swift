@@ -13,6 +13,7 @@ import UserNotifications
 class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var nav: UINavigationItem!
     
     var habits : [HabitData] = []
     
@@ -23,6 +24,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.delegate = self
         tableView.rowHeight = 90
         
+        nav.title = dailyTotals()
         scheduleNotification()
 
     }
@@ -33,6 +35,9 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         // reload table view
         tableView.reloadData()
+        nav.title = dailyTotals()
+
+        
     }
 
     
@@ -83,7 +88,19 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
     
-    
+    //MARK: count completes
+    func dailyTotals() -> String{
+        fetchData()
+        let total = habits.count
+        var complete = 0
+        
+        for habit in habits {
+            if habit.completeToday == true {
+                complete += 1
+            }
+        }
+        return "\(complete) of \(total) Complete"
+    }
     
     
     //String MM-dd-yy to Date Convert
@@ -122,26 +139,6 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return DateInFormat
     }
     
-//    
-//    //MARK: deleting
-//    
-//    // function to delete data from table using swipe to delete
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete{
-//            let context = DatabaseController.getContext()
-//            let item = habits[indexPath.row] as NSManagedObject
-//            context.delete(item)
-//            fetchData()
-//            DatabaseController.saveContext()
-//        }
-//        tableView.reloadData()
-//    }
-//    
-//    // function to deleat the table row
-//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-//        return.delete
-//    }
-    
     
     // MARK: custom swipe buttons
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -166,6 +163,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             // saves all changes and reloads the view
             DatabaseController.saveContext()
             tableView.reloadData()
+            self.nav.title = self.dailyTotals()
 
         }
         
@@ -187,6 +185,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             // saves all changes and reloads the view
             DatabaseController.saveContext()
             tableView.reloadData()
+            self.nav.title = self.dailyTotals()
             
         }
         
@@ -198,6 +197,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             self.fetchData()
             DatabaseController.saveContext()
             tableView.reloadData()
+            self.nav.title = self.dailyTotals()
 
         }
         
@@ -205,6 +205,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // DELETE Button
         let badgeAction = UITableViewRowAction(style: .normal, title: badges) {
             (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
+            
         }
         
         
@@ -231,6 +232,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showHabit" {
+            nav.title = "Back"
             guard let destinationController = segue.destination as? DetailViewController, let indexPath = tableView.indexPathForSelectedRow else {return}
             
             let habit = habits[indexPath.row]
@@ -290,6 +292,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         
     }
+
     
 }
 
