@@ -94,6 +94,7 @@
                     <connections>
                         <outlet property="nav" destination="fHs-Aw-jg4" id="duc-e8-TFI"/>
                         <outlet property="tableView" destination="cLp-9Q-Syu" id="of2-sC-KBx"/>
+                        <segue destination="XdO-EO-G4R" kind="show" identifier="toNotes" id="hZ4-06-H0b"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XM1-kM-kSi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -323,7 +324,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d2j-Ea-lMd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-559.20000000000005" y="951.27436281859082"/>
+            <point key="canvasLocation" x="-591" y="960"/>
         </scene>
         <!--Notes View Controller-->
         <scene sceneID="z5Q-vK-nhn">
@@ -354,7 +355,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zbP-gF-kSB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="292" y="1280.5097451274364"/>
+            <point key="canvasLocation" x="204" y="627"/>
         </scene>
         <!--Badge Table View Controller-->
         <scene sceneID="7Sv-ic-96Y">
@@ -403,7 +404,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brz-N1-q1s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="290" y="610"/>
+            <point key="canvasLocation" x="204" y="1317"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -508,4 +509,7 @@
             <point key="canvasLocation" x="204" y="-136"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="hZ4-06-H0b"/>
+    </inferredMetricsTieBreakers>
 </document>

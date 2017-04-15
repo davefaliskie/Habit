@@ -434,7 +434,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         if segue.identifier == "showNotes" {
             guard let destinationController = segue.destination as? NotesViewController else {return}
             let habit = self.habit
-            print("used segue")
             destinationController.habit = habit
         }
     }

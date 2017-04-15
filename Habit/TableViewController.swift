@@ -145,7 +145,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let habit = self.habits[indexPath.row]
         
         // Complete Button
-        let completeAction = UITableViewRowAction(style: .normal, title: "   Complete   ") {
+        let completeAction = UITableViewRowAction(style: .normal, title: "  Complete  ") {
             (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             
             // activity that will happen
@@ -201,25 +201,28 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
         }
         
-        let badges = "\(habit.currentStreak) streak"
-        // DELETE Button
-        let badgeAction = UITableViewRowAction(style: .normal, title: badges) {
+        let notes = "Notes"
+        // To Notes Button
+        let noteAction = UITableViewRowAction(style: .normal, title: notes) {
             (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             
+            self.performSegue(withIdentifier: "toNotes", sender: indexPath)
+
         }
         
         
 
         
         // give buttons color
-        completeAction.backgroundColor = UIColor(red:0.03, green:0.49, blue:0.55, alpha:1.0)
+        completeAction.backgroundColor = UIColor(red:0.12, green:0.66, blue:0.59, alpha:1.0)
         notCompleteAction.backgroundColor = UIColor(red:0.03, green:0.49, blue:0.55, alpha:1.0)
+        //noteAction.backgroundColor = UIColor(red:0.03, green:0.49, blue:0.55, alpha:1.0)
         
         
         if habit.completeToday == false {
-            return [completeAction, badgeAction, deleteAction]
+            return [completeAction, noteAction, deleteAction]
         } else {
-            return [notCompleteAction, badgeAction, deleteAction]
+            return [notCompleteAction, noteAction, deleteAction]
         }
         
     }
@@ -229,16 +232,21 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     // MARK: - Navigation and Segue
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showHabit" {
             nav.title = "Back"
             guard let destinationController = segue.destination as? DetailViewController, let indexPath = tableView.indexPathForSelectedRow else {return}
-            
+
             let habit = habits[indexPath.row]
             destinationController.habit = habit
+        }
+        if segue.identifier == "toNotes" {
+            print("worked")
+            nav.title = "Back"
+            guard let destinationController = segue.destination as? NotesViewController, let indexPath = sender else {return}
             
-            
+            let habit = habits[(indexPath as AnyObject).row]
+            destinationController.habit = habit
         }
     }
     

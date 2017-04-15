@@ -27,7 +27,12 @@ class NotesViewController: UIViewController, UITextViewDelegate {
         let tap: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(NotesViewController.dismissKeyboard))
         tap.direction = UISwipeGestureRecognizerDirection.down
         view.addGestureRecognizer(tap)
-
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if habit?.notes != nil {
+            textField.text = habit?.notes!
+        }
     }
 
     // saves any text that is modified
