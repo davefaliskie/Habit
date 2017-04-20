@@ -11,11 +11,13 @@ import UIKit
 class NotesViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var textField: UITextView!
+    @IBOutlet weak var nav: UINavigationItem!
     
     var habit: HabitData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        nav.title = habit!.name!
         textField.delegate = self
         if habit?.notes != nil {
             textField.text = habit?.notes!
@@ -23,7 +25,7 @@ class NotesViewController: UIViewController, UITextViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(NotesViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(NotesViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        //Looks for single or multiple taps.
+        //Swip down to hide keyboard
         let tap: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(NotesViewController.dismissKeyboard))
         tap.direction = UISwipeGestureRecognizerDirection.down
         view.addGestureRecognizer(tap)

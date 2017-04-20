@@ -23,9 +23,12 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = 90
-        
-        nav.title = dailyTotals()
+    
         scheduleNotification()
+        
+        fetchData()
+        tableView.reloadData()
+        nav.title = dailyTotals()
 
     }
     
@@ -147,7 +150,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // Complete Button
         let completeAction = UITableViewRowAction(style: .normal, title: "  Complete  ") {
             (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
-            
+            self.checkCurrentStreak(habit: habit)
             // activity that will happen
             habit.daysComplete = habit.daysComplete + 1
             habit.lastCompleteSave = habit.lastComplete
@@ -170,7 +173,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // NOT Complete Button
         let notCompleteAction = UITableViewRowAction(style: .normal, title: "Not Complete") {
             (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
-            
+            self.checkCurrentStreak(habit: habit)
             // activity that will happen
             habit.daysComplete = habit.daysComplete - 1
             habit.lastComplete = habit.lastCompleteSave
@@ -241,7 +244,6 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             destinationController.habit = habit
         }
         if segue.identifier == "toNotes" {
-            print("worked")
             nav.title = "Back"
             guard let destinationController = segue.destination as? NotesViewController, let indexPath = sender else {return}
             
@@ -263,12 +265,38 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 habit.completeToday = false
                 cell.completeImage.image = UIImage(named: "red")
             }
+        }else {
+            habit.completeToday = false
+            cell.completeImage.image = UIImage(named: "red")
         }
     }
     
+    func checkCurrentStreak(habit: HabitData) {
+        if ((habit.lastComplete) != nil) {
+            // set the higest streak to the higest current streak.
+            if habit.currentStreak > habit.highestStreak {
+                habit.highestStreak = habit.currentStreak
+                habit.streakEqual = true
+                DatabaseController.saveContext()
+            }
+            
+            // reset current streak to zero if a day is missed
+            let difference = daysFromStart(date: habit.lastComplete! as Date)
+            if difference >= 2 {
+                habit.currentStreak = 0
+                habit.streakEqual = false
+                DatabaseController.saveContext()
+            }
+        }
+        // Place "miss" image in the history view
+        let historyMax = daysFromStart(date: habit.dateCreated! as Date)
+        while (habit.history != nil) && (historyMax > (habit.history?.count)!) {
+            habit.history?.insert("red", at: 0)
+        }
+        DatabaseController.saveContext()
+    }
     
-    
-    // MARK: User Notifications 
+    // MARK: User Notifications
     
     func scheduleNotification() {
         let content = UNMutableNotificationContent()
@@ -300,6 +328,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         
     }
+    
+    
 
     
 }

@@ -20,6 +20,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
     @IBOutlet weak var currentStreak: UILabel!
     @IBOutlet weak var highestStreak: UILabel!
     @IBOutlet weak var badgeCountLable: UILabel!
+    @IBOutlet weak var nav: UINavigationItem!
     
     // testing values data
     @IBOutlet weak var startDate: UILabel!
@@ -31,7 +32,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        nav.title = habit!.name!
         // set Collect view delegates
         badgeView.delegate = self
         historyView.delegate = self
@@ -43,8 +44,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         self.view.addSubview(historyView)
         
         loadData()
-        correct()
-
+       
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        nav.title = habit!.name!
     }
     
     // loads the data and displays it on the page.
@@ -81,6 +85,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         badgeView.reloadData()
         historyView.reloadData()
         showDates()
+        setBadgeFlags()
         
     }
     
@@ -212,16 +217,13 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
                 if difference >= 2 {
                     habit.currentStreak = 0
                     habit.streakEqual = false
-                    
-                    // Also place "miss" image in the history view
-                    let historyMax = TVC.daysFromStart(date: habit.dateCreated! as Date)
-                
-                    while (habit.history != nil) && (historyMax > (habit.history?.count)!) {
-                        habit.history?.insert("red", at: 0)
-                    }
-                    
                     DatabaseController.saveContext()
                 }
+            }
+            // Place "miss" image in the history view
+            let historyMax = TVC.daysFromStart(date: habit.dateCreated! as Date)
+            while (habit.history != nil) && (historyMax > (habit.history?.count)!) {
+                habit.history?.insert("red", at: 0)
             }
         }
     }
@@ -338,13 +340,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         }
         
         // missed more then 3 days 
-        if habit?.lastComplete != nil {
-            let daysDifference = TVC.daysFromStart(date: (habit?.lastComplete)! as Date)
-            if daysDifference > 3 {
-                badges!.append("ZZZ")
-                habit?.was_zzz = true
-            }
-        }
         if habit?.was_zzz == true {
             badges!.insert("ZZZ", at: 0)
         }
@@ -353,12 +348,23 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         
         badgeCountLable.text = String(describing: badges!.count)
         
-        
+        print(badges!)
         return badges!.reversed()
     }
         
     
+    func setBadgeFlags() {
+        // set ZZZ Badge
+        if habit?.lastComplete != nil {
+            let daysDifference = TVC.daysFromStart(date: (habit?.lastComplete)! as Date)
+            if daysDifference > 3 {
+                habit?.was_zzz = true
+            }
+        }
+        
+        //
 
+    }
 
     
     
@@ -428,36 +434,18 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
     // Segue to Badges View Controller
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showBadges" {
+            nav.title = "Back"
             guard let destinationController = segue.destination as? BadgeTableViewController else {return}
             destinationController.badges = getBadges()
+            let habit = self.habit
+            destinationController.habit = habit!
+            destinationController.nav.title = habit!.name!
         }
         if segue.identifier == "showNotes" {
+            nav.title = "Back"
             guard let destinationController = segue.destination as? NotesViewController else {return}
             let habit = self.habit
             destinationController.habit = habit
         }
     }
-    
-
-    
-    func correct() {
-        if let habit = habit {
-            if  (habit.history != nil) {
-                for i in 0..<getHistory().count {
-                    if getHistory()[i] == "check" {
-                        habit.history?[i] = "green"
-                    }
-                    if getHistory()[i] == "miss" {
-                        habit.history?[i] = "red"
-                    }
-                }
-            }
-        }
-    }
-    
-    
-    
-    
-    
-
 }

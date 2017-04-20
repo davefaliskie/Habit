@@ -295,19 +295,16 @@
                                 <color key="textColor" red="1" green="0.35294117650000001" blue="0.37254901959999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KFA-VK-JgN">
-                                <rect key="frame" x="296" y="198" width="63" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Notes"/>
-                                <connections>
-                                    <segue destination="XdO-EO-G4R" kind="show" identifier="showNotes" id="JeC-b5-RWp"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="WR8-GI-flj"/>
+                    <navigationItem key="navigationItem" id="WR8-GI-flj">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="KwI-69-X0a">
+                            <connections>
+                                <segue destination="XdO-EO-G4R" kind="show" identifier="showNotes" id="kGh-SX-fHV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="badgeCountLable" destination="cg3-59-o0c" id="2Yg-vA-a7j"/>
                         <outlet property="badgeView" destination="8Sr-Kt-TGt" id="Z3O-px-iZQ"/>
@@ -317,6 +314,7 @@
                         <outlet property="highestStreak" destination="cbj-vQ-cXK" id="eX1-9U-5FE"/>
                         <outlet property="historyView" destination="odq-v1-S87" id="uaI-Cs-2wZ"/>
                         <outlet property="lastCompleteDate" destination="Pmu-0s-1z2" id="URi-YN-LdJ"/>
+                        <outlet property="nav" destination="WR8-GI-flj" id="DEn-yU-1rg"/>
                         <outlet property="notCompleteBtn" destination="3SW-5i-ZUz" id="TEq-sE-SBe"/>
                         <outlet property="startDate" destination="dJ9-6u-X7e" id="T3c-x4-wJv"/>
                         <outlet property="totalCompleted" destination="aOL-Z1-Hlb" id="04b-y2-res"/>
@@ -349,7 +347,9 @@
                         </subviews>
                         <color key="backgroundColor" red="0.031372549020000001" green="0.4941176471" blue="0.5450980392" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" id="ZYX-8j-XRo"/>
                     <connections>
+                        <outlet property="nav" destination="ZYX-8j-XRo" id="cPX-q3-GKg"/>
                         <outlet property="textField" destination="WUS-P8-zy7" id="8Oy-lF-b7R"/>
                     </connections>
                 </viewController>
@@ -357,7 +357,7 @@
             </objects>
             <point key="canvasLocation" x="204" y="627"/>
         </scene>
-        <!--Badge Table View Controller-->
+        <!--Title-->
         <scene sceneID="7Sv-ic-96Y">
             <objects>
                 <tableViewController id="WZQ-or-Gwl" customClass="BadgeTableViewController" customModule="Habit" customModuleProvider="target" sceneMemberID="viewController">
@@ -398,8 +398,10 @@
                             <outlet property="delegate" destination="WZQ-or-Gwl" id="D0M-dy-GMO"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="Bjs-BD-mPl"/>
                     <connections>
                         <outlet property="badgeTableView" destination="y89-fu-SsP" id="es5-dE-lZB"/>
+                        <outlet property="nav" destination="Bjs-BD-mPl" id="054-46-bFr"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brz-N1-q1s" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -510,6 +512,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="hZ4-06-H0b"/>
+        <segue reference="kGh-SX-fHV"/>
     </inferredMetricsTieBreakers>
 </document>
