@@ -348,7 +348,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         
         badgeCountLable.text = String(describing: badges!.count)
         
-        print(badges!)
         return badges!.reversed()
     }
         
@@ -444,6 +443,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         if segue.identifier == "showNotes" {
             nav.title = "Back"
             guard let destinationController = segue.destination as? NotesViewController else {return}
+            let habit = self.habit
+            destinationController.habit = habit
+        }
+        if segue.identifier == "showHistory" {
+            nav.title = "Back"
+            guard let destinationController = segue.destination as? HistoryViewController else {return}
             let habit = self.habit
             destinationController.habit = habit
         }

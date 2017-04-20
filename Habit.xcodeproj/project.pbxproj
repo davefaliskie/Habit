@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F635B0151EA844B600C88D97 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F635B0141EA844B600C88D97 /* HistoryViewController.swift */; };
 		F65842601E9C663100E07035 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F658425F1E9C663100E07035 /* NotesViewController.swift */; };
+		F670D6691EA84921004F50B4 /* HCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F670D6681EA84921004F50B4 /* HCell.swift */; };
 		F671104D1E67A20D000398B8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F671104C1E67A20D000398B8 /* DetailViewController.swift */; };
 		F676C9BB1E74B44E00A08A7F /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F676C9BA1E74B44E00A08A7F /* HistoryCell.swift */; };
 		F68032D01E6C952100898D08 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68032CF1E6C952100898D08 /* CustomCell.swift */; };
@@ -44,7 +46,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F635B0141EA844B600C88D97 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		F658425F1E9C663100E07035 /* NotesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
+		F670D6681EA84921004F50B4 /* HCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCell.swift; sourceTree = "<group>"; };
 		F671104C1E67A20D000398B8 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F676C9BA1E74B44E00A08A7F /* HistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		F68032CF1E6C952100898D08 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
@@ -129,10 +133,12 @@
 				F6F3C1961E7F22FB008E04AA /* BadgeTableViewController.swift */,
 				F6F3C1981E7F2AC9008E04AA /* BadgesTableViewCell.swift */,
 				F658425F1E9C663100E07035 /* NotesViewController.swift */,
+				F635B0141EA844B600C88D97 /* HistoryViewController.swift */,
 				F6BEAB521E609416005CF796 /* Main.storyboard */,
 				F6BEAB5A1E609416005CF796 /* LaunchScreen.storyboard */,
 				F6BEAB5D1E609416005CF796 /* Info.plist */,
 				F6BEAB551E609416005CF796 /* Habit.xcdatamodeld */,
+				F670D6681EA84921004F50B4 /* HCell.swift */,
 			);
 			path = Habit;
 			sourceTree = "<group>";
@@ -297,6 +303,8 @@
 				F6A80BB31E7108E600C6B0FD /* BadgesCell.swift in Sources */,
 				F6BEAB571E609416005CF796 /* Habit.xcdatamodeld in Sources */,
 				F676C9BB1E74B44E00A08A7F /* HistoryCell.swift in Sources */,
+				F635B0151EA844B600C88D97 /* HistoryViewController.swift in Sources */,
+				F670D6691EA84921004F50B4 /* HCell.swift in Sources */,
 				F6BEAB511E609416005CF796 /* ViewController.swift in Sources */,
 				F671104D1E67A20D000398B8 /* DetailViewController.swift in Sources */,
 				F6F3C1991E7F2AC9008E04AA /* BadgesTableViewCell.swift in Sources */,
