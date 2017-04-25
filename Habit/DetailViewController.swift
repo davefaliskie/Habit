@@ -12,23 +12,28 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
 
     
     @IBOutlet weak var habitNameLabel: UILabel!
-    @IBOutlet weak var totalCompleted: UILabel!
     @IBOutlet weak var completeBtn: UIButton!
     @IBOutlet weak var notCompleteBtn: UIButton!
     @IBOutlet weak var badgeView: UICollectionView!
     @IBOutlet weak var historyView: UICollectionView!
-    @IBOutlet weak var currentStreak: UILabel!
-    @IBOutlet weak var highestStreak: UILabel!
     @IBOutlet weak var badgeCountLable: UILabel!
     @IBOutlet weak var nav: UINavigationItem!
     
-    // testing values data
-    @IBOutlet weak var startDate: UILabel!
-    @IBOutlet weak var lastCompleteDate: UILabel!
+    @IBOutlet weak var circleLeft: UILabel!
+    @IBOutlet weak var circleCenter: UILabel!
+    @IBOutlet weak var circleRight: UILabel!
+    
+    @IBOutlet weak var leftDescript: UILabel!
+    @IBOutlet weak var centerDescript: UILabel!
+    @IBOutlet weak var rightDescript: UILabel!
     
     let TVC = TableViewController()
     
     var habit: HabitData?
+    var totalDays: Int32?
+    var tapL: Int?
+    var tapC: Int?
+    var tapR: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +49,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         self.view.addSubview(historyView)
         
         loadData()
-       
+        
+        setTapGestures()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -59,18 +65,21 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         guard let habitName = habit?.name else {fatalError("Cannot show detail without an item")}
         guard let habitDaysComplete = habit?.daysComplete else {fatalError("Cannot show detail without an item")}
         guard let currentStreakCount = habit?.currentStreak else {fatalError("Error with current streak")}
-        guard let highestStreakCount = habit?.highestStreak else{fatalError("Error with highest Streak")}
+        //guard let highestStreakCount = habit?.highestStreak else{fatalError("Error with highest Streak")}
+        
+        let daysComplete = Float(habit!.daysComplete)
+        let percent = Int32((daysComplete / Float(totalDays!)) * 100.0)
         
         habitNameLabel.text = String(habitName)
-        totalCompleted.text = String(habitDaysComplete)
-        currentStreak.text = String(currentStreakCount)
-        highestStreak.text = String(highestStreakCount)
+        circleLeft.text = String(habitDaysComplete)
+        circleCenter.text = String(currentStreakCount)
+        circleRight.text = "\(percent) %"
         
         
         // Make labels circle
-        makeCircle(label: totalCompleted)
-        makeCircle(label: currentStreak)
-        makeCircle(label: highestStreak)
+        makeCircle(label: circleLeft)
+        makeCircle(label: circleCenter)
+        makeCircle(label: circleRight)
         
         // sets the 'Complete' btns based on daily activity
         if habit?.lastComplete == nil {
@@ -84,29 +93,79 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         
         badgeView.reloadData()
         historyView.reloadData()
-        showDates()
         setBadgeFlags()
         
     }
     
     // MARK: make labels circle
-    func makeCircle(label: UILabel) {
+    public func makeCircle(label: UILabel) {
         label.layer.cornerRadius = label.frame.width/2
         label.layer.borderWidth = 0.5
         label.layer.borderWidth = 5.0
         label.layer.borderColor = UIColor(red:0.03, green:0.49, blue:0.55, alpha:1.0).cgColor
     }
     
-    // MARK: - Save / Update
-    // removed... No need to allow user to edit habit title.
-
-//    @IBAction func savePressed(_ sender: Any) {
-//        if let habit = habit {
-//            habit.name = habitNameTF.text
-//            DatabaseController.saveContext()
-//            _ = navigationController?.popViewController(animated: true)
-//        }
-//    }
+    func setTapGestures() {
+        // LEFT
+        let tapL = UITapGestureRecognizer(target: self, action: #selector(DetailViewController.toggleLabelL))
+        circleLeft.isUserInteractionEnabled = true
+        circleLeft.addGestureRecognizer(tapL)
+        
+        //CENTER
+        let tapC = UITapGestureRecognizer(target: self, action: #selector(DetailViewController.toggleLabelC))
+        circleCenter.isUserInteractionEnabled = true
+        circleCenter.addGestureRecognizer(tapC)
+        
+        //RIGHT
+        let tapR = UITapGestureRecognizer(target: self, action: #selector(DetailViewController.toggleLabelR))
+        circleRight.isUserInteractionEnabled = true
+        circleRight.addGestureRecognizer(tapR)
+    }
+    
+    // MARK: toggle labels
+    
+    func toggleLabelL(sender: UITapGestureRecognizer) {
+        // LEFT CIRCLE
+        if tapL == 1 {
+            // Total Complete
+            circleLeft.text = String(describing: habit!.daysComplete)
+            leftDescript.text = "Days Complete"
+            tapL = 0
+        } else {
+            // Total days from start
+            circleLeft.text = String(describing: 1 + (TVC.daysFromStart(date: (habit!.dateCreated! as Date))))
+            leftDescript.text = "Total Days"
+            tapL = 1
+        }
+    }
+    func toggleLabelC(sender: UITapGestureRecognizer) {
+        // CENTER CIRCLE
+        if tapC == 1 {
+            circleCenter.text = String(describing: habit!.currentStreak)
+            centerDescript.text = "Current Streak"
+            tapC = 0
+        } else {
+            circleCenter.text = String(describing: habit!.highestStreak)
+            centerDescript.text = "Highest Streak"
+            tapC = 1
+        }
+    }
+    func toggleLabelR(sender: UITapGestureRecognizer) {
+        // RIGHT CIRCLE
+        if tapR == 1 {
+            let daysComplete = Float(habit!.daysComplete)
+            let percent = Int32((daysComplete / Float(totalDays!)) * 100.0)
+            circleRight.font = circleRight.font.withSize(25)
+            circleRight.text = "\(percent) %"
+            rightDescript.text = "Completion Rate"
+            tapR = 0
+        }else{
+            circleRight.font = circleRight.font.withSize(18)
+            circleRight.text = "\(TVC.formatDate(date: (habit?.dateCreated)!))"
+            rightDescript.text = "Start Date"
+            tapR = 1
+        }
+    }
     
     
     // MARK: Completed buttons and logic
@@ -177,27 +236,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
         }
         
     }
-    
-    
-    
-//    // MARK: Disable the save button until some text is entered
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        
-//        // Find out what the text field will be after adding the current edit
-//        let text = (habitNameTF.text! as NSString).replacingCharacters(in: range, with: string)
-//        
-//        //Checking if the input field is empty
-//        if text.trimmingCharacters(in: CharacterSet.whitespaces).isEmpty{
-//            // Disable Save Button
-//            saveBtn.isEnabled = false
-//        } else {
-//            // Enable Save Button
-//            saveBtn.isEnabled = true
-//        }
-//        return true
-//    }
-    
-    
+
     
     //MARK: Streak
     
@@ -227,12 +266,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
             }
         }
     }
-    
-    
 
-    
-    
-    
     
     // MARK: Badges/ History Collection Views
     
@@ -415,19 +449,19 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
     
     
     // MARK: Display dates data
-    func showDates() {
+//    func showDates() {
+////        if habit?.lastComplete != nil {
+////            let daysDifference = TVC.daysFromStart(date: habit?.lastComplete! as! Date)
+////        }
 //        if habit?.lastComplete != nil {
-//            let daysDifference = TVC.daysFromStart(date: habit?.lastComplete! as! Date)
+//            let last = TVC.formatDate(date: (habit?.lastComplete)!)
+//            lastCompleteDate.text = String(describing: last)
 //        }
-        if habit?.lastComplete != nil {
-            let last = TVC.formatDate(date: (habit?.lastComplete)!)
-            lastCompleteDate.text = String(describing: last)
-        }
-        
-        let start = TVC.formatDate(date: (habit?.dateCreated)!)
-        startDate.text = String(describing: start)
-        
-    }
+//        
+//        let start = TVC.formatDate(date: (habit?.dateCreated)!)
+//        startDate.text = String(describing: start)
+//        
+//    }
     
     
     // Segue to Badges View Controller
@@ -451,6 +485,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
             guard let destinationController = segue.destination as? HistoryViewController else {return}
             let habit = self.habit
             destinationController.habit = habit
+            destinationController.totalDays = self.totalDays
         }
     }
 }

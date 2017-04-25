@@ -242,6 +242,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
             let habit = habits[indexPath.row]
             destinationController.habit = habit
+            let days: Int32 = Int32(daysFromStart(date: habit.dateCreated! as Date))
+            destinationController.totalDays = days + 1
         }
         if segue.identifier == "toNotes" {
             nav.title = "Back"
