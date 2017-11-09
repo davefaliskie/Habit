@@ -31,16 +31,24 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         nav.title = dailyTotals()
 
     }
-    
+
+
     override func viewWillAppear(_ animated: Bool) {
         // get data from core data
         fetchData()
-        
         // reload table view
         tableView.reloadData()
         nav.title = dailyTotals()
 
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // get data from core data
+        fetchData()
+        // reload table view
+        tableView.reloadData()
+        nav.title = dailyTotals()
     }
 
     
