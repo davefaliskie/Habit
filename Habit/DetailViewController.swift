@@ -124,7 +124,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
     
     // MARK: toggle labels
     
-    func toggleLabelL(sender: UITapGestureRecognizer) {
+    @objc func toggleLabelL(sender: UITapGestureRecognizer) {
         // LEFT CIRCLE
         if tapL == 1 {
             // Total Complete
@@ -138,7 +138,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
             tapL = 1
         }
     }
-    func toggleLabelC(sender: UITapGestureRecognizer) {
+    @objc func toggleLabelC(sender: UITapGestureRecognizer) {
         // CENTER CIRCLE
         if tapC == 1 {
             circleCenter.text = String(describing: habit!.currentStreak)
@@ -150,7 +150,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
             tapC = 1
         }
     }
-    func toggleLabelR(sender: UITapGestureRecognizer) {
+    @objc func toggleLabelR(sender: UITapGestureRecognizer) {
         // RIGHT CIRCLE
         if tapR == 1 {
             let daysComplete = Float(habit!.daysComplete)
@@ -160,7 +160,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UICollectionV
             rightDescript.text = "Completion Rate"
             tapR = 0
         }else{
-            circleRight.font = circleRight.font.withSize(18)
+            circleRight.font = circleRight.font.withSize(20)
             circleRight.text = "\(TVC.formatDate(date: (habit?.dateCreated)!))"
             rightDescript.text = "Start Date"
             tapR = 1
